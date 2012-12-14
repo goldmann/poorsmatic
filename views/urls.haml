@@ -1,0 +1,21 @@
+%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}  
+  %head
+    %title Poorsmatic | Urls
+  %body
+    %ul
+      %li
+        %a{:href => url('/terms')} Terms
+      %li
+        %a{:href => url('/urls')} Urls
+
+    %h2 Urls
+    %p Urls in database: #{@urls.size}
+
+    - unless @urls.empty?
+      %table
+        %tbody
+          %tr
+            %th Name
+          - @urls.each do |url|
+            %tr
+              %td= url.term
