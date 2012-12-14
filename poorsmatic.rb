@@ -11,6 +11,8 @@ require 'models/occurrence'
 #DataMapper::Model.raise_on_save_failure = true
 
 class Poorsmatic < Sinatra::Base
+  include TorqueBox::Injectors
+
   use TorqueBox::Session::ServletStore
   use Rack::MethodOverride
 
@@ -26,7 +28,16 @@ class Poorsmatic < Sinatra::Base
     # This method is used to put the terms into the queue.
     # The method is executed every time a new term is added or deleted.
     def terms_changed
-      Term.all
+      terms = []
+
+      Term.all.each {|t| terms << t.term}
+
+      # Fetch the terms topic
+      topic = fetch('/topics/terms')
+
+      # Send the message (an array of terms) to the topic
+      # even if this is an empty list
+      topic.publish(terms)
     end
   end
 
