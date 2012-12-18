@@ -1,8 +1,7 @@
+require 'data_mapper'
+
 class Url
   include DataMapper::Resource
-
-  has n, :occurrences
-  has n, :terms, :through => :occurrences
 
   property :id, Serial
   property :url, String

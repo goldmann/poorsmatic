@@ -1,27 +1,21 @@
 require 'torquebox'
 require 'sinatra'
-require "sinatra/reloader"
-require 'data_mapper'
+require 'sinatra/reloader'
 require 'haml'
 
 require 'models/url'
 require 'models/term'
-require 'models/occurrence'
-
-#DataMapper::Model.raise_on_save_failure = true
 
 class Poorsmatic < Sinatra::Base
   include TorqueBox::Injectors
 
-  use TorqueBox::Session::ServletStore
-  use Rack::MethodOverride
+  configure do
+    use TorqueBox::Session::ServletStore
+    use Rack::MethodOverride
+  end
 
   configure :development do
     register Sinatra::Reloader
-
-    DataMapper::Logger.new(TorqueBox::Logger.new(DataMapper), :debug)
-    DataMapper.setup(:default, 'sqlite:///tmp/poorsmatic.db')
-    DataMapper.auto_migrate!
   end
 
   helpers do
@@ -46,14 +40,14 @@ class Poorsmatic < Sinatra::Base
   end
 
   post '/terms' do
+
     term = Term.new(:term => params[:term])
 
     if term.save
       terms_changed
     else
-      term.errors.each do |msg|
-        puts msg
-      end
+      session[:errors] = []
+      term.errors.each {|e| session[:errors] << e.first }
     end
 
     redirect to('/terms')
