@@ -29,3 +29,7 @@ Please make sure you have the appropriate authentication method enabled too. In 
 ### Enable transactions
 
 In `/var/lib/pgsql/data/postgresql.conf` please set `max_prepared_transactions` to value greater than `0`. I think `10` should be sufficient.
+
+## License
+
+[MIT](https://github.com/goldmann/poorsmatic/blob/master/LICENSE)
