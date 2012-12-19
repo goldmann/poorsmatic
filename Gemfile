@@ -6,7 +6,7 @@ gem "sinatra-reloader", "1.0"
 gem "rack-flash3", "1.0.1"
 # Database access
 gem "datamapper", "1.2.0"
-gem "dm-sqlite-adapter", "1.2.0"
+gem "dm-postgres-adapter", "1.2.0"
 # Templating engine
 gem "haml", "3.1.7"
 # Used to connect to Twitter

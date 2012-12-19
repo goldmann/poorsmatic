@@ -1,17 +1,9 @@
 require 'data_mapper'
-
 require 'models/term'
 require 'models/url'
 
-DB = '/tmp/poorsmatic.db'
-
-DataMapper::Logger.new(TorqueBox::Logger.new(DataMapper), :debug)
-DataMapper.setup(:default, "sqlite://#{DB}")
-
-if File.exists?(DB)
-  DataMapper.auto_upgrade!
-else
-  DataMapper.auto_migrate!
-end
+DataMapper::Logger.new(TorqueBox::Logger.new(DataMapper), :info)
+DataMapper.setup(:default, "postgres://poorsmatic:poorsmatic@localhost/poorsmatic")
+DataMapper.auto_upgrade!
 
 
