@@ -43,18 +43,23 @@ class Poorsmatic < Sinatra::Base
 
     term = Term.new(:term => params[:term])
 
-    if term.save
-      terms_changed
-    else
-      session[:errors] = []
-      term.errors.each {|e| session[:errors] << e.first }
+    TorqueBox.transaction do
+      if term.save
+        terms_changed
+      else
+        session[:errors] = []
+        term.errors.each {|e| session[:errors] << e.first }
+      end
     end
 
     redirect to('/terms')
   end
 
   delete '/term/:id' do
-    Term.get(params[:id]).destroy
+    TorqueBox.transaction do
+      Term.get(params[:id]).destroy
+    end
+
     terms_changed
     redirect to('/terms')
   end
