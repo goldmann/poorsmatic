@@ -20,9 +20,6 @@ TorqueBox.configure do
   end
 
   environment do
-    POSTGRESQL_DB_HOST 'localhost'
-    POSTGRESQL_DB_NAME 'poorsmatic'
-    POSTGRESQL_DB_USER 'poorsmatic'
-    POSTGRESQL_DB_PASS 'poorsmatic'
+    DB_URL "postgres://poorsmatic:poorsmatic@localhost/poorsmatic"
   end
 end
