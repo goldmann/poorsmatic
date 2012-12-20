@@ -2,6 +2,10 @@
 
 You can read more about the application in the [blog post](http://immutant.org/news/2012/12/11/openshift-postgresql). This is a Ruby version of the application, based on [Sinatra](http://www.sinatrarb.com/) and [TorqueBox](http://torquebox.org/).
 
+## Twitter credentials
+
+You need to use your Twitter OAuth credentials. You can generate required set of keys/secrets on the [Twitter apps page](https://dev.twitter.com/apps). Create a new application (or use existing) and modify `torquebox.rb` afterwards.
+
 ## Database
 
 You need to prepare PostgreSQL database for the application.
