@@ -7,9 +7,8 @@ class TwitterService
   # We'll use it to extract the URLs from the tweet
   include Twitter::Extractor
 
-  def initialize(options = {})
+  def initialize(credentials = {})
     @terms = []
-    @credentials = options['credentials']
 
     # Initialize logging
     @log = TorqueBox::Logger.new(TwitterService)
@@ -19,10 +18,10 @@ class TwitterService
     # Create the Twitter client with credentials proviided in the
     # torquebox.yml file
     @client = Twitter4j4r::Client.new(
-        :consumer_key     => @credentials['consumer_key'],
-        :consumer_secret  => @credentials['consumer_secret'],
-        :access_token     => @credentials['access_token'],
-        :access_secret    => @credentials['access_secret']
+        :consumer_key     => credentials['consumer_key'],
+        :consumer_secret  => credentials['consumer_secret'],
+        :access_token     => credentials['access_token'],
+        :access_secret    => credentials['access_secret']
     )
 
     @client.on_exception do |exception|
