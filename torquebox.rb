@@ -1,4 +1,8 @@
 TorqueBox.configure do
+  web do
+    context "/poorsmatic"
+  end
+
   queue '/queues/urls' do
     processor UrlScrapper do
       concurrency 4
