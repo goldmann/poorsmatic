@@ -58,9 +58,9 @@ class Poorsmatic < Sinatra::Base
   delete '/term/:id' do
     TorqueBox.transaction do
       Term.get(params[:id]).destroy
+      terms_changed
     end
 
-    terms_changed
     redirect to('/terms')
   end
  
